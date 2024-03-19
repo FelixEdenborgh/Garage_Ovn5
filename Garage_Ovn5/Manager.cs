@@ -62,7 +62,7 @@ namespace Garage_Ovn5
                         running = false;
                         break;
                     default:
-                        Console.WriteLine("Det där var inget val");
+                        Console.WriteLine("Ogiltigt val, försök igen.");
                         break;
                 }
 
