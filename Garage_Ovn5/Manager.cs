@@ -22,10 +22,23 @@ namespace Garage_Ovn5
             bool running = true;
             bool start = true;
 
+            // Settings på fordon
+            bool hasSail = false;
+            string? fuel = string.Empty;
+            int engines = 0;
+            int wheels = 0;
+            bool lightsOn = false;
+            int numberOfSeats = 0;
+            int horsePower = 0;
+
             int numberOfParkingSlots = 0;
             string? input = string.Empty;
             int numberOfVehiclesFromStart = 0;
+
+
            
+            
+
 
             while (start)
             {
@@ -96,12 +109,172 @@ namespace Garage_Ovn5
                         ShowAllVehicles();
                         break;
                     case 2:
+                        ShowAllVehicleTypes();
                         break;
                     case 3:
+                        // Skapandet av vehicle
+                        Console.WriteLine("Hur många däck har den svara i heltal: ");
+                        string? howManyWheels = Console.ReadLine();
+                        if (int.TryParse(howManyWheels, out wheels)) 
+                        {
+                        }
+                        else
+                        {
+                            Console.WriteLine("Inte ett giltigt input.");
+                        }
+
+                        Console.WriteLine("Vilken färg ska fordonet vara i?: ");
+                        string? color = Console.ReadLine();
+                        if(color == null)
+                        {
+                            color = "Red";
+                        }
+
+                        Console.WriteLine("Vi använder oss av Svenska registerings nummer här\nVilket registerings nummer ska ditt fordon ha?: ");
+                        string? regNumberinput = Console.ReadLine(); // Steg 1: Läs in input.
+
+                        // Steg 2 och 3: Kontrollera om input är null. Använd standardvärdet eller konvertera till versaler.
+                        string regNumber;
+                        if (regNumberinput == null)
+                        {
+                            regNumber = "ABC123"; // Standardvärde om input är null.
+                        }
+                        else
+                        {
+                            regNumber = regNumberinput.ToUpper(); // Konvertera till versaler om input inte är null.
+                        }
+
+                        Console.WriteLine("Hur många häst krafter har fordonet?: ");
+                        string? horsePowerInput = Console.ReadLine();
+                        if (horsePowerInput == null){}
+                        else
+                        {
+                            if (!int.TryParse(horsePowerInput, out horsePower))
+                            {
+                                horsePower = 10;
+                            }
+                        }
+                        
+
+
+                        Console.WriteLine("Det finns Car, Boat, Plane, MotorCycle, Buss");
                         Console.WriteLine("Vad för fordon vill du lägga till?: ");
+                        string? typeOfVehicle = Console.ReadLine();
+                        if (typeOfVehicle == null)
+                        {
+                            typeOfVehicle = "Car"; // om den är null så hård kodas den till bil
+                            Console.WriteLine("Vad för Fuel använder den?: ");
+                            fuel = Console.ReadLine();
+                            if (fuel == null)
+                            {
+                                fuel = "Bensin";
+                            }
+                            // lägg till fordonet
+                            var car = new Car(wheels, color, horsePower, regNumber, fuel);
+                            AddVehicleToGarage(car);
+                        }
+                        else if (typeOfVehicle == "Car")
+                        {
+                            Console.WriteLine("Vad för Fuel använder den?: ");
+                            fuel = Console.ReadLine();
+                            if (fuel == null)
+                            {
+                                fuel = "Bensin";
+                            }
+                            // lägg till fordonet
+                            var car = new Car(wheels, color, horsePower, regNumber, fuel);
+                            AddVehicleToGarage(car);
+                        }
+                        else if (typeOfVehicle == "Boat")
+                        {
+                            Console.WriteLine("Har den ett segel? svara ja/ nej: ");
+                            string? hasSailInput = Console.ReadLine();
+
+                            if (hasSailInput != null)
+                            {
+                                // Förvandla input till små bokstäver för att göra jämförelsen skiftlägesokänslig
+                                string sail = hasSailInput.ToLower();
+
+                                // Kontrollera om användaren svarade "ja"
+                                if (sail == "ja")
+                                {
+                                    hasSail = true;
+                                }
+                                // Inget behov av att explicit sätta hasSail till false igen, det är redan standardvärdet.
+                            }
+
+
+                            // lägg till fordonet
+                            var boat = new Boat(wheels, color, horsePower, regNumber, hasSail);
+                            AddVehicleToGarage(boat);
+                        }
+                        else if (typeOfVehicle == "Plane")
+                        {
+                            Console.WriteLine("Hur många motorer har Planet?: ");
+                            string? numberOfEngines = Console.ReadLine();
+
+                            if (!int.TryParse(numberOfEngines, out engines))
+                            {
+                                engines = 2; // Sätter standardvärdet till 2 om inmatningen inte är ett giltigt heltal
+                            }
+
+                            // lägg till fordonet
+                            var plane = new Plane(wheels, color, horsePower, regNumber, engines);
+                            AddVehicleToGarage(plane);
+                        }
+                        else if (typeOfVehicle == "MotorCycle")
+                        {
+                            Console.WriteLine("Har MotorCyckeln lampan på? Svara i ja / nej: ");
+                            string? lightsOnInput = Console.ReadLine();
+                            if (lightsOnInput != null)
+                            {
+                                // Förvandla input till små bokstäver för att göra jämförelsen skiftlägesokänslig
+                                string light = lightsOnInput.ToLower();
+
+                                // Kontrollera om användaren svarade "ja"
+                                if (light == "ja")
+                                {
+                                    lightsOn = true;
+                                }
+                                // Inget behov av att explicit sätta hasSail till false igen, det är redan standardvärdet.
+                            }
+
+                            // lägg till fordonet
+                            var motorCycle = new MotorCycle(wheels, color, horsePower, regNumber, lightsOn);
+                            AddVehicleToGarage(motorCycle);
+                        }
+                        else if (typeOfVehicle == "Buss")
+                        {
+                            Console.WriteLine("Hur många platser finns det på din buss?: ");
+                            string? numberOfSeatsInput = Console.ReadLine();
+                            if(!int.TryParse(numberOfSeatsInput, out numberOfSeats))
+                            {
+                                numberOfSeats = 10;
+                            }
+
+                            // lägg till fordonet
+                            var buss = new Bus(wheels, color, horsePower, regNumber, numberOfSeats);
+                            AddVehicleToGarage(buss);
+                        }
+                        else
+                        {
+                            typeOfVehicle = "Car"; // om den är satt som något som inte finns att välja på så hård kodas den till bil
+                            Console.WriteLine("Vad för Fuel använder den?: ");
+                            fuel = Console.ReadLine();
+                            if (fuel == null)
+                            {
+                                fuel = "Bensin";
+                            }
+
+                            // lägg till fordonet
+                            var car = new Car(wheels, color, horsePower, regNumber, fuel);
+                            AddVehicleToGarage(car);
+                        }
                         break;
                     case 4:
                         Console.WriteLine("Vad för fordon vill du ta bort?: ");
+
+                        RemoveVehicle();
                         break;
                     case 5:
                         Console.WriteLine("Vi utgår ifrån bara Svenska regesterings nummer t ex 'ABC123'");
@@ -124,6 +297,21 @@ namespace Garage_Ovn5
 
             
 
+        }
+
+        private void RemoveVehicle(Vehicle vehicle)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Visa alla fordons typer
+        private void ShowAllVehicleTypes()
+        {
+            foreach (var vehicle in garage)
+            {
+                Console.WriteLine($"Type: {vehicle.GetType()}");
+                Console.WriteLine();
+            }
         }
 
 
