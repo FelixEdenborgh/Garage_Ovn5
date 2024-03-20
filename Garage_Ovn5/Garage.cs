@@ -23,6 +23,37 @@ namespace Garage_Ovn5
             get { return capacity; }
         }
 
+        // Konstruktor
+        public Garage(int capacity)
+        {
+            this.capacity = capacity;
+            vehicles = new T[capacity];
+        }
+
+        // lägga till ny vehicle
+        public bool AddVehicle(T vehicle)
+        {
+            if (count >= capacity) return false; // kollar om det får plats ett fordon annars returnar false
+            // lägger till ett fordon
+            vehicles[count++] = vehicle;
+            return true;
+        }
+
+        // Ta bort vehicle
+        public bool RemoveVehicle(T vehicle)
+        {
+            for(int i = 0; i < count; i++)
+            {
+                if (vehicles[i].Equals(vehicle))
+                {
+                    vehicles[i] = vehicles[--count];
+                    vehicles[count] = null;
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         // Generisk version av GetEnumerator som används för IEnumerable<T>
         public IEnumerator<T> GetEnumerator()

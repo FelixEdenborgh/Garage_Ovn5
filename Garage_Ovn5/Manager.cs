@@ -10,19 +10,56 @@ namespace Garage_Ovn5
 {
     public class Manager
     {
+        private Garage<Vehicle> garage;
+
+        public Manager(Garage<Vehicle> garage)
+        {
+            this.garage = garage;
+        }
+
         public void Run()
         {
             bool running = true;
             int numberOfParkingSlots = 0;
+            string? input = string.Empty;
             int numberOfVehiclesFromStart = 0;
 
-            // Skapa garaget och lägger på hur många platser från start det ska ha
-            Console.WriteLine("Hej och välkommen till att sätta upp detta Garage" +
-                " hur många platser ska finnas i den?");
-            numberOfParkingSlots = Convert.ToInt32(Console.ReadLine());
+            bool start = true;
 
-            Console.WriteLine("Hur många fordon ska finnas från start, svara i siffror: ");
-            numberOfVehiclesFromStart = Convert.ToInt32(Console.ReadLine());
+            while(start)
+            {
+                // Skapa garaget och lägger på hur många platser från start det ska ha
+                Console.WriteLine("Hej och välkommen till att sätta upp detta Garage" +
+                    " hur många platser ska finnas i den. Svara i siffor: ");
+                input = Console.ReadLine();
+
+                if (int.TryParse(input, out numberOfParkingSlots))
+                {
+                    // Skapa garage med x amount of platser:
+                    var garage = new Garage<Vehicle>(numberOfParkingSlots); // skapar ett garage och sätter det till storleken av användar input
+                }
+                else
+                {
+                    Console.WriteLine("Ogiltig input. Ange ett heltal.");
+                }
+
+                Console.WriteLine("Hur många fordon ska finnas från start, svara i siffror: ");
+                string? input2 = Console.ReadLine();
+
+                if(int.TryParse(input2, out numberOfVehiclesFromStart))
+                {
+
+                }
+                else
+                {
+                    Console.WriteLine("Ogiltig input. Ange hur många fordon från start som ska sättas. Svara i heltal");
+                }
+
+            }
+            
+
+
+            
 
             while (running)
             {
@@ -72,5 +109,20 @@ namespace Garage_Ovn5
             
 
         }
+
+
+        // Hanterar AddVehicle() metoden i Garage klassen för att lägga till ett fordon
+        public void AddVehicleToGarage(Vehicle vehicle)
+        {
+            if (!garage.AddVehicle(vehicle))
+            {
+                Console.WriteLine("Garaget är fullt, kunde inte lägga till fordonet.");
+            }
+            else
+            {
+                Console.WriteLine("Fordonet har lagts till i garaget.");
+            }
+        }
+
     }
 }
