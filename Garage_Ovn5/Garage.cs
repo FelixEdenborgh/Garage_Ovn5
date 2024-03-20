@@ -39,6 +39,21 @@ namespace Garage_Ovn5
             return true;
         }
 
+        // Hitta fordon baserat på registeringsNummer
+        public bool FindVehicleBasedOnRegistrationNumber(string regNumber)
+        {
+            for(int i = 0; i < count; i++)
+            {
+                if(vehicles[i].RegistrationNumber == regNumber)
+                {
+                    return true;
+                }
+                
+            }
+            return false; // Inget fordon med det registreringsnumret hittades
+        }
+
+
         // Ta bort vehicle
         public bool RemoveVehicle(string registrationNumber)
         {

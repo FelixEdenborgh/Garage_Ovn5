@@ -272,13 +272,27 @@ namespace Garage_Ovn5
                         }
                         break;
                     case 4:
-                        Console.WriteLine("Vad för fordon vill du ta bort?: ");
-
-                        RemoveVehicle();
+                        Console.WriteLine("Registerings nummer att välja på: ");
+                        ShowAllRegisterNumbers();
+                        Console.WriteLine("Ange registerings numret på den du vill ta bort: ");
+                        string? regNumberToRemove = Console.ReadLine();
+                        if(regNumberToRemove == null) { 
+                        }
+                        else
+                        {
+                            RemoveVehicleFromGarage(regNumberToRemove);
+                        }
                         break;
                     case 5:
+                        ShowAllRegisterNumbers();
                         Console.WriteLine("Vi utgår ifrån bara Svenska regesterings nummer t ex 'ABC123'");
                         Console.WriteLine("Vilket registerings nummer vill du söka på: ");
+                        string? regNumberToBeFound = Console.ReadLine();
+                        if(regNumberToBeFound == null) { }
+                        else
+                        {
+                            LocateVehicleFromGarage(regNumberToBeFound);
+                        }
                         break;
                     case 6:
                         Console.WriteLine("Sök efter egenskap på fordon: ");
@@ -299,9 +313,31 @@ namespace Garage_Ovn5
 
         }
 
-        private void RemoveVehicle(Vehicle vehicle)
+
+        // Hitta fordonet baserat på registeringsnummer
+        private void LocateVehicleFromGarage(string regNumber)
         {
-            throw new NotImplementedException();
+            if(garage.FindVehicleBasedOnRegistrationNumber(regNumber))
+            {
+                Console.WriteLine("Fordonet har hittats");
+            }
+            else
+            {
+                Console.WriteLine("Inget fordon hittades med det registeringsnumret.");
+            }
+        }
+
+        // Ta bort ett fordon baserat på registeringsnummer
+        private void RemoveVehicleFromGarage(string regnumberToRemove)
+        {
+            if (garage.RemoveVehicle(regnumberToRemove))
+            {
+                Console.WriteLine("Fordonet har tagits bort.");
+            }
+            else
+            {
+                Console.WriteLine("Inget fordon hittades med det registeringsnumret.");
+            }
         }
 
         // Visa alla fordons typer
@@ -341,6 +377,16 @@ namespace Garage_Ovn5
             {
                 Console.WriteLine($"Type: {vehicle.GetType().Name}\nRegNumber: {vehicle.RegistrationNumber}\nColor: {vehicle.ColorOfVehicle}\n" +
                     $"Number Of Wheels: {vehicle.NumberOfWheels}\nHorse Power: {vehicle.HorsePower}" );
+                Console.WriteLine();
+            }
+        }
+
+        // Vissa alla fordons registerings nummer
+        public void ShowAllRegisterNumbers()
+        {
+            foreach (var vehicle in garage)
+            {
+                Console.WriteLine($"RegNumber: {vehicle.RegistrationNumber}");
                 Console.WriteLine();
             }
         }
