@@ -40,18 +40,23 @@ namespace Garage_Ovn5
         }
 
         // Ta bort vehicle
-        public bool RemoveVehicle(T vehicle)
+        public bool RemoveVehicle(string registrationNumber)
         {
             for(int i = 0; i < count; i++)
             {
-                if (vehicles[i].Equals(vehicle))
+                if(vehicles[i].RegistrationNumber.Equals(registrationNumber, StringComparison.OrdinalIgnoreCase))
                 {
-                    vehicles[i] = vehicles[--count];
-                    vehicles[count] = null;
-                    return true;
+                    // Skifta ner alla element efter det borttagna fordonet ett steg
+                    for(int j = i; j < count; j++)
+                    {
+                        vehicles[j] = vehicles[j+1];
+                    }
+                    vehicles[--count] = null; // Minska count och nullställ den sista positionen
+                    return true; // Fordonet hittades och togs bort
                 }
+
             }
-            return false;
+            return false; // Inget fordon med det registreringsnumret hittades
         }
 
 
