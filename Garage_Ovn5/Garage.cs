@@ -40,17 +40,18 @@ namespace Garage_Ovn5
         }
 
         // Hitta fordon baserat på registeringsNummer
-        public bool FindVehicleBasedOnRegistrationNumber(string regNumber)
+        public T? FindVehicleBasedOnRegistrationNumber(string regNumber)
         {
             for(int i = 0; i < count; i++)
             {
-                if(vehicles[i].RegistrationNumber == regNumber)
+                if (vehicles[i].RegistrationNumber.Equals(regNumber, StringComparison.OrdinalIgnoreCase))
+
                 {
-                    return true;
+                    return vehicles[i];
                 }
                 
             }
-            return false; // Inget fordon med det registreringsnumret hittades
+            return null; // Inget fordon med det registreringsnumret hittades
         }
 
 
@@ -66,7 +67,9 @@ namespace Garage_Ovn5
                     {
                         vehicles[j] = vehicles[j+1];
                     }
-                    vehicles[--count] = null; // Minska count och nullställ den sista positionen
+                    // Minska count och nullställ den sista positionen
+                    vehicles[--count] = default(T); // tydligen funkar default också.
+
                     return true; // Fordonet hittades och togs bort
                 }
 

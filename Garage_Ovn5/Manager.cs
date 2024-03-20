@@ -317,13 +317,14 @@ namespace Garage_Ovn5
         // Hitta fordonet baserat på registeringsnummer
         private void LocateVehicleFromGarage(string regNumber)
         {
-            if(garage.FindVehicleBasedOnRegistrationNumber(regNumber))
+            var vehicle = garage.FindVehicleBasedOnRegistrationNumber(regNumber);
+            if (vehicle != null)
             {
-                Console.WriteLine("Fordonet har hittats");
+                Console.WriteLine($"Fordonet med Registeringsnummret {regNumber} har hittats.");
             }
             else
             {
-                Console.WriteLine("Inget fordon hittades med det registeringsnumret.");
+                Console.WriteLine($"Inget fordon hittades med det registeringsnumret {regNumber}.");
             }
         }
 
@@ -345,7 +346,7 @@ namespace Garage_Ovn5
         {
             foreach (var vehicle in garage)
             {
-                Console.WriteLine($"Type: {vehicle.GetType()}");
+                Console.WriteLine($"Type: {vehicle.GetType().Name}");
                 Console.WriteLine();
             }
         }
