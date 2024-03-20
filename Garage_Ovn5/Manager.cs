@@ -295,7 +295,34 @@ namespace Garage_Ovn5
                         }
                         break;
                     case 6:
-                        Console.WriteLine("Sök efter egenskap på fordon: ");
+                        // prop
+                        Console.WriteLine("Sök efter egenskap på fordon");
+                        Console.WriteLine("Vad för egenskap letar du efter? Vi har:" +
+                            " \nNumberOfWheels\nColorOfVehicle\nHorsePower\nFuel\nHasSail\nNumberOfEngines\nLightOn\nNumberOfSeats");
+                        string? inputProp = Console.ReadLine();
+                        string Iprop = string.Empty;
+                        if(inputProp == null)
+                        {
+                            Iprop = "ColorOfVehicle";
+                        }
+                        else
+                        {
+                            Iprop = inputProp;
+                        }
+                        // value
+                        Console.WriteLine("Vad för typ av egenskaps value letar du efter? ");
+                        string? inputValue = Console.ReadLine();
+                        string IValue = string.Empty;
+                        if(inputValue == null)
+                        {
+                            IValue = "Red";
+                        }
+                        else
+                        {
+                            IValue = inputValue;
+                        }
+
+                        LocateVehicleByProperty(Iprop, IValue);
                         break;
                     case 7:
                         Console.WriteLine("Garaget stängs nu.");
@@ -313,6 +340,24 @@ namespace Garage_Ovn5
 
         }
 
+
+        // Hitta fordon baserat på egenskap
+        private void LocateVehicleByProperty(string prop, object value)
+        {
+            var vehicleByproperty = garage.FindVehiclesByProperty(prop, value);
+            if(vehicleByproperty.Any())
+            {
+                foreach (var vehicle in vehicleByproperty)
+                {
+                    Console.WriteLine($"Vehicle: {vehicle.GetType().Name} med Registeringsnummer: {vehicle.RegistrationNumber} har Propertyn: {prop} och Property value: {value}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Hittar inget på Propertyn: {prop} och Property value: {value}");
+            }
+            
+        }
 
         // Hitta fordonet baserat på registeringsnummer
         private void LocateVehicleFromGarage(string regNumber)

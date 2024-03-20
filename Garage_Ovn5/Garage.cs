@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Garage_Ovn5
 {
@@ -68,7 +69,7 @@ namespace Garage_Ovn5
                         vehicles[j] = vehicles[j+1];
                     }
                     // Minska count och nullställ den sista positionen
-                    vehicles[--count] = default(T); // tydligen funkar default också.
+                    vehicles[--count] = default(T)!; // tydligen funkar default också.
 
                     return true; // Fordonet hittades och togs bort
                 }
@@ -77,6 +78,32 @@ namespace Garage_Ovn5
             return false; // Inget fordon med det registreringsnumret hittades
         }
 
+
+        // Hitta vehicle baserat på egenskap
+        // Hitta fordon baserat på egenskap och dess värde
+
+        public IEnumerable<T> FindVehiclesByProperty(string propertyName, object value)
+        {
+            var matchingVehicles = new List<T>();
+
+            for (int i = 0; i < count; i++)
+            {
+                var vehicle = vehicles[i];
+                if (vehicle == null) continue; // Hoppa över om fordonet är null
+
+                PropertyInfo propertyInfo = vehicle.GetType().GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
+                if (propertyInfo != null)
+                {
+                    var propertyValue = propertyInfo.GetValue(vehicle);
+                    if (propertyValue != null && propertyValue.Equals(value))
+                    {
+                        matchingVehicles.Add(vehicle);
+                    }
+                }
+            }
+
+            return matchingVehicles;
+        }
 
         // Generisk version av GetEnumerator som används för IEnumerable<T>
         public IEnumerator<T> GetEnumerator()
