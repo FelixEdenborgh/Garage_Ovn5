@@ -298,7 +298,7 @@ namespace Garage_Ovn5
                         // prop
                         Console.WriteLine("Sök efter egenskap på fordon");
                         Console.WriteLine("Vad för egenskap letar du efter? Vi har:" +
-                            " \nNumberOfWheels\nColorOfVehicle\nHorsePower\nFuel\nHasSail\nNumberOfEngines\nLightOn\nNumberOfSeats");
+                            " \nNumberOfWheels\nColorOfVehicle\nHorsePower\nFuel\nHasSail\nNumberOfEngines\nLightOn\nNumberOfSeats\n:");
                         string? inputProp = Console.ReadLine();
                         string Iprop = string.Empty;
                         if(inputProp == null)
@@ -310,7 +310,7 @@ namespace Garage_Ovn5
                             Iprop = inputProp;
                         }
                         // value
-                        Console.WriteLine("Vad för typ av egenskaps value letar du efter? ");
+                        Console.WriteLine("Vad för typ av egenskaps value letar du efter? \n:");
                         string? inputValue = Console.ReadLine();
                         string IValue = string.Empty;
                         if(inputValue == null)
