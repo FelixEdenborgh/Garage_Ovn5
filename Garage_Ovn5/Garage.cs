@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using Garage_Ovn5.Interface;
 
 namespace Garage_Ovn5
 {
-    public class Garage<T> : IEnumerable<T> where T : Vehicle
+    public class Garage<T> : IEnumerable<T>, IGarage<T> where T : Vehicle
     {
         private T[] vehicles;
         private int capacity;
@@ -43,14 +44,14 @@ namespace Garage_Ovn5
         // Hitta fordon baserat på registeringsNummer
         public T? FindVehicleBasedOnRegistrationNumber(string regNumber)
         {
-            for(int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
                 if (vehicles[i].RegistrationNumber.Equals(regNumber, StringComparison.OrdinalIgnoreCase))
 
                 {
                     return vehicles[i];
                 }
-                
+
             }
             return null; // Inget fordon med det registreringsnumret hittades
         }
@@ -59,14 +60,14 @@ namespace Garage_Ovn5
         // Ta bort vehicle
         public bool RemoveVehicle(string registrationNumber)
         {
-            for(int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
-                if(vehicles[i].RegistrationNumber.Equals(registrationNumber, StringComparison.OrdinalIgnoreCase))
+                if (vehicles[i].RegistrationNumber.Equals(registrationNumber, StringComparison.OrdinalIgnoreCase))
                 {
                     // Skifta ner alla element efter det borttagna fordonet ett steg
-                    for(int j = i; j < count; j++)
+                    for (int j = i; j < count; j++)
                     {
-                        vehicles[j] = vehicles[j+1];
+                        vehicles[j] = vehicles[j + 1];
                     }
                     // Minska count och nullställ den sista positionen
                     vehicles[--count] = default(T)!; // tydligen funkar default också.
