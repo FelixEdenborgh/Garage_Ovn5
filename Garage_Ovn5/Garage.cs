@@ -92,7 +92,7 @@ namespace Garage_Ovn5
                 var vehicle = vehicles[i];
                 if (vehicle == null) continue; // Hoppa över om fordonet är null
 
-                PropertyInfo propertyInfo = vehicle.GetType().GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
+                PropertyInfo propertyInfo = vehicle.GetType().GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance)!;
                 if (propertyInfo != null)
                 {
                     var propertyValue = propertyInfo.GetValue(vehicle);
