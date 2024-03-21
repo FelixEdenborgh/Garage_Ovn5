@@ -350,7 +350,7 @@ namespace Garage_Ovn5
         // Hitta fordon baserat på egenskap
         private void LocateVehicleByProperty(string prop, object value)
         {
-            var vehicleByproperty = garage.FindVehiclesByProperty(prop, value);
+            var vehicleByproperty = garage!.FindVehiclesByProperty(prop, value);
             if(vehicleByproperty.Any())
             {
                 foreach (var vehicle in vehicleByproperty)
@@ -368,7 +368,7 @@ namespace Garage_Ovn5
         // Hitta fordonet baserat på registeringsnummer
         private void LocateVehicleFromGarage(string regNumber)
         {
-            var vehicle = garage.FindVehicleBasedOnRegistrationNumber(regNumber);
+            var vehicle = garage!.FindVehicleBasedOnRegistrationNumber(regNumber);
             if (vehicle != null)
             {
                 Console.WriteLine($"Fordonet med Registeringsnummret {regNumber} har hittats.");
@@ -382,7 +382,7 @@ namespace Garage_Ovn5
         // Ta bort ett fordon baserat på registeringsnummer
         private void RemoveVehicleFromGarage(string regnumberToRemove)
         {
-            if (garage.RemoveVehicle(regnumberToRemove))
+            if (garage!.RemoveVehicle(regnumberToRemove))
             {
                 Console.WriteLine("Fordonet har tagits bort.");
             }
@@ -395,7 +395,7 @@ namespace Garage_Ovn5
         // Visa alla fordons typer
         private void ShowAllVehicleTypes()
         {
-            foreach (var vehicle in garage)
+            foreach (var vehicle in garage!)
             {
                 Console.WriteLine($"Type: {vehicle.GetType().Name}");
                 Console.WriteLine();
@@ -425,7 +425,7 @@ namespace Garage_Ovn5
         // Vissa alla fordon
         public void ShowAllVehicles()
         {
-            foreach(var vehicle in garage)
+            foreach(var vehicle in garage!)
             {
                 Console.WriteLine($"Type: {vehicle.GetType().Name}\nRegNumber: {vehicle.RegistrationNumber}\nColor: {vehicle.ColorOfVehicle}\n" +
                     $"Number Of Wheels: {vehicle.NumberOfWheels}\nHorse Power: {vehicle.HorsePower}" );
@@ -436,7 +436,7 @@ namespace Garage_Ovn5
         // Vissa alla fordons registerings nummer
         public void ShowAllRegisterNumbers()
         {
-            foreach (var vehicle in garage)
+            foreach (var vehicle in garage!)
             {
                 Console.WriteLine($"RegNumber: {vehicle.RegistrationNumber}");
                 Console.WriteLine();
