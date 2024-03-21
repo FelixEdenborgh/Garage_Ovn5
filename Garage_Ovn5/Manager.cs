@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Garage_Ovn5.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,12 @@ namespace Garage_Ovn5
 {
     public class Manager
     {
-        private Garage<Vehicle>? garage = null;
+        // Denna sköter bara Garage
+        //private Garage<Vehicle>? garage = null;
+
+        // Denna är för IGarage
+        private IGarage<Vehicle>? garage = null;
+
 
         //public Manager(Garage<Vehicle> garage)
         //{
@@ -298,7 +304,7 @@ namespace Garage_Ovn5
                         // prop
                         Console.WriteLine("Sök efter egenskap på fordon");
                         Console.WriteLine("Vad för egenskap letar du efter? Vi har:" +
-                            " \nNumberOfWheels\nColorOfVehicle\nHorsePower\nFuel\nHasSail\nNumberOfEngines\nLightOn\nNumberOfSeats\n:");
+                            " \nNumberOfWheels\nColorOfVehicle\nHorsePower\nFuel\nHasSail = true\false\nNumberOfEngines\nLightOn = true\false\nNumberOfSeats\n:");
                         string? inputProp = Console.ReadLine();
                         string Iprop = string.Empty;
                         if(inputProp == null)
