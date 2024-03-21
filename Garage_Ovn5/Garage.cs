@@ -64,20 +64,20 @@ namespace Garage_Ovn5
             {
                 if (vehicles[i].RegistrationNumber.Equals(registrationNumber, StringComparison.OrdinalIgnoreCase))
                 {
-                    // Skifta ner alla element efter det borttagna fordonet ett steg
-                    for (int j = i; j < count; j++)
+                    // Skifta ner alla element efter det borttagna fordonet ett steg, stoppa innan sista elementet
+                    for (int j = i; j < count - 1; j++)
                     {
                         vehicles[j] = vehicles[j + 1];
                     }
                     // Minska count och nullställ den sista positionen
-                    vehicles[--count] = default(T)!; // tydligen funkar default också.
+                    vehicles[--count] = default(T)!; // Använd default(T) för att hantera både referens- och värde-typer korrekt
 
                     return true; // Fordonet hittades och togs bort
                 }
-
             }
             return false; // Inget fordon med det registreringsnumret hittades
         }
+
 
 
         // Hitta vehicle baserat på egenskap
