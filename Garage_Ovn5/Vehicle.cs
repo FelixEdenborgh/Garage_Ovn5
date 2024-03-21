@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Garage_Ovn5.Interface;
 
 namespace Garage_Ovn5
 {
-    public class Vehicle
+    public class Vehicle : IVehicle
     {
         // Hur många hjul
         private int numberOfWheels;
